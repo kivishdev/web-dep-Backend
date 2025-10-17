@@ -14,6 +14,17 @@ app.set("view engine", "ejs");
 // Syntax: response.render("file name without extension") 
 
 
+// Middleware: Ye ek server pe request and response k beech ka connecting link haii jo request se response tk data bhejta haii.
+// Koi bhi request ko ek route se jaane se isse hokar guzarnaa padtaa haii.
+// Ex. Use:
+app.use((req,res,next) => {
+    console.log("This is the middleware")
+    const a = 12
+    const b = 13
+    console.log(a+b)
+    return next()    // Iska mtlb ye haii aage badho.
+})
+
 // Ex. usage of express server and render a html page:
 app.get("/", (req, res) => { 
     // If sirf text bhejna ho to send() use karo
