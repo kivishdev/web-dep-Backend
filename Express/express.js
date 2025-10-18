@@ -40,7 +40,7 @@ app.get("/",(req,res,next) => {
    console.log(a+b)
    next();
 }, (request,response) => {
-    response.send('This is the home page at route "/')
+    response.send('This is the home page at route "/" ')
 });
 
 
