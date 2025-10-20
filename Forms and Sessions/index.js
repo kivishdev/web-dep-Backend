@@ -7,6 +7,9 @@ app.use(morgan("dev"))
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+// Ab if hume koii static file add krnii haii to:
+// Syntax: app.use(express.static("folder-ka-naam"))
+app.use(express.static("public"))
 
 app.set("view engine", "ejs");   // Setting ejs as view engine to rendeer HTML.
 
