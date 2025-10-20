@@ -5,7 +5,7 @@ const app = express()  // Opening express tools to access that all tools
 
 app.use(morgan("dev")) 
 
-app.use(express.json())
+app.use(express.json()) // Jab requestt aata haii to vo data jumbled hotaa hai saare data ek saath hota haiii and vahii data ye json me dikhaate haii.
 app.use(express.urlencoded({extended: true}))
 // Ab if hume koii static file add krnii haii to:
 // Syntax: app.use(express.static("folder-ka-naam"))
