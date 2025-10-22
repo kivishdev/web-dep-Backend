@@ -1,5 +1,13 @@
 const fs = require("fs");
 
+// Reading File:
+fs.readdir("./", (err,fileee) => {
+    if(err) console.log(err)
+    else console.log(fileee);
+})
+
+
+
 // Creating a file:
 // Syntax: fs.writeFile("file-ka-naam","Uske andar ka content", (error)=>{
 //     if(err) {
@@ -40,19 +48,21 @@ fs.rename("script.txt", "new-script.txt", (err) => {
 //     if(err) console.log(err);
 //     else console.log("Renamed");
 // })
-fs.copyFile("new-script.txt", "chacha.txt", (err) => {
+
+fs.copyFile("man.txt", "chacha.txt", (err) => {
     if(err) console.log(err);
     else console.log("Copied Successfullyy");
 })
 
 // Unlink: Removes the file:
-fs.unlink("new-script.txt", (err)=> {
-    if(err) console.log(err.errno, err.code, "This is the error");
+fs.unlink("remove.txt", (err)=> {
+    if(err) console.log(err, "This is the error");
     else console.log("Removed");
 })
 
 // Readfile: File content padhna
-fs.readFile("script.js", (err,data) => {
+fs.readFile("man.txt", (err,data) => {
     if(err) console.log(err)
     else console.log(data.toString())
 })
+

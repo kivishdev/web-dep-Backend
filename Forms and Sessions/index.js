@@ -14,9 +14,11 @@ app.use(express.static("public"))
 app.set("view engine", "ejs");   // Setting ejs as view engine to rendeer HTML.
 
 
+
 // Routes:
 // ✅ Home route for form
 app.get("/", (req, res) => {
+    // Passing a data to the frontend: 
     res.render("index");   // Ye teri index.ejs file ko render karega
 });
 
@@ -32,6 +34,14 @@ app.post("/get-form-data", (req,res) => {   // Form ye route pe server me aayega
     console.log(req.body); 
     res.send("😂Lelo Halwaa Purii")  // Aur jaise hi form subit krengee to jaise hi ye hit hogaa to ye result Show ho Jaayegaa
 })     
+
+// Dynaic Routing: Hum aise bohot routes bnaate hai jisme sirf ek hissa change hotaa haii. For Ex: /profile/harsh, /profile/harshita... and aur bhi aise same:
+// Ab isi ko mujhe dynamic bnaana haii to phir vo dynamic part ko realise kro and uske hi route k aage : lagaa do.
+app.get("/profile/:username"  // Ab vo colon k aage mai khuchh bhi naam lik du s chalega.
+    , (req,res) => {
+        // req.params vahaa use hotaa jiske route me : lgaa ho. And ab hum url me jo bhi naam daal de vo hume main page me dikh jaayega.
+    res.send(`Welcome, ${req.params}`)
+})
 
 app.listen(3000);
 
