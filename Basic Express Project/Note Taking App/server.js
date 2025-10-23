@@ -34,14 +34,39 @@ app.get('/file/:filename', (req,res) => {
 })
 
 app.get('/edit/:filename', (req,res) => {
-    res.render("edit", {filename:req.params.filename} )
-})
+    let filename = req.params.filename;
 
-app.post('/edit', (req,res) => {
-    fs.rename(`./files/${req.body.previous}`,`./files/${req.body.new}`, (err) => {
+    fs.readFile(`./files/${filename}`, 'utf-8',(err, filedata) => {
         if(err) console.log(err);
-        else res.redirect("/");
+        else res.render("edit", {filename:filename, filedata: filedata} )
     })
 })
+
+// Pseudocode for POST /edit
+app.post('/edit', (req, res) => {
+    // 1. Get old name, new name, AND new content from the form
+    let oldFilename = req.body.previous;
+    let newFilename = req.body.new;
+    let newContent = req.body.details; // We will add a textarea named "details"
+
+    // 2. First, rename the file
+    fs.rename(`./files/${oldFilename}`, `./files/${newFilename}`, (err) => {
+        if (err) {
+            console.log(err);
+            return; // Stop if rename fails
+        }
+        
+        // 3. IF rename is successful, THEN write the new content to the NEW file
+        fs.writeFile(`./files/${newFilename}`, newContent, (writeErr) => {
+            if (writeErr) {
+                console.log(writeErr);
+                return; // Stop if write fails
+            }
+
+            // 4. If everything is successful, redirect to home
+            res.redirect("/");
+        });
+    });
+});
 
 app.listen(3000)
