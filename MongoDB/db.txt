@@ -1,0 +1,13 @@
+Database: Database vo hotaa hai jahaa apne data save kr sktee hai chahe vo images ko efficient way me
+
+Types of Databases:
+
+SQL: Tble me data store krtaa hai.. rows,columns.
+NoSQL: Data Objects k roop me store hota haii.
+
+Terminologies: Collections, Documents, Schemas, keys, models
+
+Collections: Ek main cheez k bohot saare parts. jaise Amzon k andar user, preference ka pasand. 
+
+Documents: Collections k andarrr ka data
+
