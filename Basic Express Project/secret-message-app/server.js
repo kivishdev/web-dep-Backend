@@ -12,6 +12,20 @@ app.get('/', (req,res) => {
     res.render("index")
 });
 
+app.get('/getmessage', (req,res) => {
+    const code = req.query.code;
+
+    const filePath = `/messages/${code}.txt`;
+
+    if(filePath) {
+        res.redirect(`/getmessage/${code}`)
+    } else {
+        res.send("Wrong Code Entered")
+    }
+})
+
+
+
 app.post('/save', (req,res) => {
     const message = req.body.message;
     // Agar message empty rhaa 
@@ -30,24 +44,25 @@ app.post('/save', (req,res) => {
         if(err) {
             res.send("Error saving your message");
         } else {
-            res.send(`This is your Secret Code: ${code}`)
+            res.send(`Your code is: ${code}`);
         }
     })
 })
+
 
 app.get('/getmessage/:code', (req,res) => {
     let code = req.params.code;
 
     const filePath = `messages/${code}.txt`;
 
-    fs.readFile(filePath, (err,data) => {
+    fs.readFile(filePath, (err,filedata) => {
         if(err) {
             res.send("Message Not Found")
         } else {
-            res.send("Your secret message is: " + data.toString())
+            res.render("message", {viewmessage: filedata});
         }
     })
-})
+}), 
 
 app.listen(3000);
 
