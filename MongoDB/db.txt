@@ -9,5 +9,11 @@ Terminologies: Collections, Documents, Schemas, keys, models
 
 Collections: Ek main cheez k bohot saare parts. jaise Amzon k andar user, preference ka pasand. 
 
-Documents: Collections k andarrr ka data
+Documents: Collections k andarrr ka data.
+
+Schemas: Ek main document k andar properties.
+// Syntax Code:
+// mongoose.connect -> database create hota hai
+// model create -> Collections create hota hai 
+// CREATE code -> document
 
