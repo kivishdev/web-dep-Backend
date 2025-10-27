@@ -6,10 +6,13 @@ const app = express();
 const userModel = require("./usermodels");   // Ab ye ek constant variable k andar apna puraa model aa chuka haii.
 
 
+
 app.get('/', (req,res) => {
     res.send("hey");
 })
 
+
+// Basis Crud using MongoDB.
 app.get('/create', async (req, res) => {
     let createduser = await userModel.create({ // Ab jo DB me schema properties diyaa tha uska values dena hai.
         name: "Kirtiya",
@@ -34,8 +37,12 @@ app.get('/read', async (req,res) => {
     // let users = await userModel.find(); // Read k liye bhii find use hota hai.
     // res.send(users) // Ye saare data read kr legaa.
     // If ek read krnaa hai to uske field ki ek value find me daal dena
-    let users = await userModel.find({name: 'Kirtiya'});
+    let users = await userModel.find({name: 'Kirti'}); // Yahaa find use kiyaa ye ek array deta haii. But if findOne use kre to object detaa hai.
     res.send(users);
 })
 
+app.get('/delete', async (req,res) => {
+    let users = await userModel.findOneAndDelete({name: "Kirtiya"});
+    res.send(users);
+})
 app.listen(3000);
