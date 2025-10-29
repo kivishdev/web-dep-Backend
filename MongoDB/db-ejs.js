@@ -6,7 +6,7 @@ const path = require('path');
 
 // Requring the Database Model.
 const userModel = require('./models/user');
-const { read } = require("fs");
+const user = require("./models/user");
 
 
 app.set('view engine', 'ejs');
@@ -28,6 +28,23 @@ app.get('/delete/:id', async (req,res) => {
     res.redirect('/read');
 });
 
+app.get('/edit/:id', async (req,res) => {
+    let user = await userModel.findOne({_id: req.params.id});
+    res.render("edit", {user});
+    console.log("Yaa dataa is in edit route");
+})
+
+app.post('/update/:id', async (req,res) => {
+    let {name,email,image} = req.body;
+
+    let user = await userModel.findOneAndUpdate(
+        {_id: req.params.id},
+        {name,email,image}, // Update kyaa krnaa hai.
+        {new: true}
+    )
+    res.redirect('/read');
+})
+
 app.post('/create', async (req,res) => {
     let {name, email, image} = req.body;
 
@@ -36,7 +53,7 @@ app.post('/create', async (req,res) => {
         email,
         image
     })
-    res.redirect("/read");
+    res.redirect('/read')
 });
 
 app.listen(3000);

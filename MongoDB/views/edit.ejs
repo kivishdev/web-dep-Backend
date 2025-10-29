@@ -1,0 +1,11 @@
+<h1 class="text-3xl tracking-tight mb-3">Edit Details</h1>
+
+<form action="/update/<%= user._id %>" method="post">
+    
+    <input value="<%= user.name %>" class="px-5 ..." type="text" placeholder="Name" name="name">
+    <input value="<%= user.email %>" class="px-5 ..." type="email" placeholder="Email" name="email">
+    <input value="<%= user.image %>" class="px-5 ..." type="text" placeholder="Image URL" name="image">
+    
+    <input class="px-5 py-2 bg-yellow-500 ..." type="submit" value="Update Details">
+    <a href="/read">See the Updated Changes</a>
+</form>
