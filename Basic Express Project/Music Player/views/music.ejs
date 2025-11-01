@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>🎵 Local Music Player</h1>
+    <h2>Music On Your Device</h2>
+
+    <% if(file && file.length > 0) { %>
+       <% file.forEach(song => { %>
+  <div>
+    <p><b><%= song %></b></p>
+     <audio controls>
+         <source src="/uploads/<%= song %>" type="audio/mpeg">
+     </audio>
+  </div>
+      <%  }) %>
+    <% } else { %>
+        <p>No Songs Found</p> 
+    <% } %>
+
+
+
+<!-- 🌟 Spotify Search Section -->
+<div class="spotify-search">
+         <p> Want to listen something else?</p>
+<form action="/spotify">
+    <input id="textinp" type="text" name="Song" placeholder="Enter Song Name...." >
+    <button id="" type="submit"> Search On Spotify</button>
+    </div>
+</form>
+</body>
+</html>
+
+
+
+<script>
+let form = document.querySelector('form');
+let input = document.querySelector('input[name="Song"]'); // 👈 input select kar le
+
+form.addEventListener('submit', function (event) {
+    if (input.value.trim().length === 0) {
+        event.preventDefault(); // 👈 page redirect hone se rok
+        alert("Please enter a song name 🎵");
+        return;
+    }
+});
+</script>
+

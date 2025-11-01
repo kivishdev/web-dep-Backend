@@ -1,0 +1,132 @@
+/* 🎵 General Page Setup */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #121212;
+  color: #fff;
+  margin: 0;
+  padding-bottom: 90px; /* footer ke liye space */
+  text-align: center;
+}
+
+h1 {
+  margin-top: 20px;
+  font-size: 2rem;
+  color: #1DB954; /* Spotify green accent */
+}
+
+h2 {
+  color: #ccc;
+  font-weight: 400;
+}
+
+/* 🎶 Song List */
+.song {
+  margin-bottom: 30px;
+}
+
+.song p {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+}
+
+/* 🎵 Zig-Zag Underline */
+.song p::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 6px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #1DB954,
+    #1DB954 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  border-radius: 2px;
+}
+
+/* 🎧 Audio Player */
+audio {
+  width: 80%;
+  max-width: 400px;
+  margin-top: 8px;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* 🌟 Spotify Footer Bar */
+.spotify-search {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #181818;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 15px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+  gap: 10px;
+}
+
+/* 🎧 Input Styling */
+.spotify-search input {
+  flex: 1;
+  max-width: 400px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+  background: #2a2a2a;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.spotify-search input::placeholder {
+  color: #888;
+}
+
+.spotify-search input:focus {
+  background: #333;
+}
+
+/* ✅ Spotify Button */
+.spotify-search button {
+  background-color: #1DB954;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.spotify-search button:hover {
+  background-color: #17a74b;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .spotify-search {
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .spotify-search input {
+    width: 90%;
+  }
+
+  .spotify-search button {
+    width: 90%;
+  }
+}
