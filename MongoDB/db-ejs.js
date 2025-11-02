@@ -6,7 +6,6 @@ const path = require('path');
 
 // Requring the Database Model.
 const userModel = require('./models/user');
-const user = require("./models/user");
 
 
 app.set('view engine', 'ejs');
