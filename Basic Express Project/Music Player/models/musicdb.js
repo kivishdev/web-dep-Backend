@@ -7,8 +7,8 @@ const musicSchema = mongoose.Schema ({
     name: String,
     lastPlayes: Date
 })
- 
-mongoose.model("Song", musicSchema);
+
+module.exports = mongoose.model("Song", musicSchema);
 
 
 

@@ -8,6 +8,16 @@ body {
   text-align: center;
 }
 
+.user-greet {
+    background: #222;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    width: fit-content;
+    margin: 20px auto;
+}
+
+
 h1 {
   margin-top: 20px;
   font-size: 2rem;
