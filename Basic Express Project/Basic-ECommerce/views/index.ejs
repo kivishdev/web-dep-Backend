@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Modern E-commerce — Demo</title>
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#0ea5a4; /* teal */
+      --accent-2:#0b74ff; /* blue */
+      --radius:14px;
+      --glass: rgba(255,255,255,0.6);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#ffffff);color:#111827}
+
+    /* Top navigation */
+    .topbar{
+      position:sticky;top:0;z-index:40;
+      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,0.75);
+      border-bottom:1px solid rgba(15,23,42,0.04);
+      display:flex;align-items:center;gap:20px;padding:14px 28px;justify-content:space-between;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    .brand h1{font-size:18px;margin:0}
+    .search{flex:1;max-width:640px;margin:0 24px}
+    .search input{width:100%;padding:10px 14px;border-radius:10px;border:1px solid rgba(15,23,42,0.06);background:white;font-size:14px}
+
+    .actions{display:flex;align-items:center;gap:12px}
+    .cart-btn{position:relative;padding:8px 12px;border-radius:10px;border:1px solid rgba(15,23,42,0.06);background:var(--card);display:flex;align-items:center;gap:8px;cursor:pointer}
+    .cart-btn svg{width:20px;height:20px}
+    .cart-badge{position:absolute;top:-6px;right:-6px;background:var(--accent-2);color:white;border-radius:999px;padding:3px 7px;font-size:12px;font-weight:600;box-shadow:0 6px 18px rgba(11,116,255,0.15)}
+
+    /* Page content */
+    .container{max-width:1200px;margin:28px auto;padding:0 20px}
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:22px}
+    .hero-text h2{margin:0 0 8px 0;font-size:28px}
+    .hero-text p{color:var(--muted);margin:0}
+
+    /* Product grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+    .card{background:var(--card);border-radius:14px;padding:14px;box-shadow:0 6px 18px rgba(13,17,23,0.06);display:flex;flex-direction:column;gap:12px;transition:transform .18s ease,box-shadow .18s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(13,17,23,0.08)}
+    .media{height:160px;border-radius:10px;background:linear-gradient(180deg,rgba(14,165,164,0.08),rgba(11,116,255,0.04));display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--accent-2)}
+    .meta{display:flex;justify-content:space-between;align-items:center}
+    .title{font-weight:600}
+    .price{font-weight:700}
+    .desc{color:var(--muted);font-size:13px}
+    .card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+    .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white}
+    .btn-light{background:transparent;border:1px solid rgba(15,23,42,0.06)}
+
+    /* Cart drawer (simple modal) */
+    .drawer{position:fixed;right:18px;top:80px;width:360px;max-width:92vw;background:var(--card);border-radius:14px;padding:14px;box-shadow:0 30px 60px rgba(2,6,23,0.15);transform:translateY(-8px);opacity:0;visibility:hidden;transition:opacity .18s ease,visibility .18s ease,transform .18s ease}
+    .drawer.open{opacity:1;visibility:visible;transform:translateY(0)}
+    .drawer h3{margin:0 0 6px 0}
+    .cart-item{display:flex;gap:10px;align-items:center;padding:8px;border-radius:10px}
+    .cart-item + .cart-item{margin-top:8px}
+    .cart-item .mini{width:56px;height:56px;border-radius:8px;background:linear-gradient(180deg,rgba(11,116,255,0.06),rgba(14,165,164,0.04));display:flex;align-items:center;justify-content:center}
+    .cart-empty{color:var(--muted);padding:20px;text-align:center}
+
+    /* Responsive */
+    @media (max-width:720px){
+      .hero{flex-direction:column;align-items:flex-start}
+      .search{order:3;width:100%;max-width:100%;margin:12px 0}
+      .brand h1{font-size:16px}
+    }
+
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">E</div>
+      <div>
+        <h1>EzCart</h1>
+        <div style="font-size:12px;color:var(--muted)">Modern demo shop</div>
+      </div>
+    </div>
+
+    <div class="search"><input id="search" placeholder="Search for products, e.g. sneakers, watch..."/></div>
+
+    <div class="actions">
+      <button class="cart-btn" id="cartToggle" title="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h2l1.4 7.2A2 2 0 0 0 8.3 12H19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="10" cy="19" r="1" stroke="currentColor" stroke-width="1.4"></circle><circle cx="18" cy="19" r="1" stroke="currentColor" stroke-width="1.4"></circle></svg>
+        <span>Cart</span>
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-text">
+        <h2>Trending picks — handpicked for you</h2>
+        <p>Fresh arrivals, clean UI and a simple cart demo. Click "Add" to see cart number update.</p>
+      </div>
+      <div style="min-width:180px;text-align:right;color:var(--muted)">
+        <div style="font-weight:700">Free shipping over ₹999</div>
+        <div style="font-size:13px">Easy returns • Secure checkout</div>
+      </div>
+    </section>
+
+    <section class="grid" id="productGrid">
+      <!-- Product cards will be injected here -->
+    </section>
+  </main>
+
+  <!-- Cart drawer -->
+  <aside class="drawer" id="cartDrawer" aria-hidden="true">
+    <h3>Your cart</h3>
+    <div id="cartItems"></div>
+    <div id="cartEmpty" class="cart-empty">No items in the cart yet. Add something cool!</div>
+    <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-weight:700">Total: <span id="cartTotal">₹0</span></div>
+      <button class="btn btn-primary" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+
+  <script>
+    // Demo products
+    const products = [
+      {id:1,title:'Classic Sneakers',price:2499,desc:'Comfortable everyday sneakers.'},
+      {id:2,title:'Minimal Watch',price:3999,desc:'Slim profile, stainless steel.'},
+      {id:3,title:'Wireless Earbuds',price:1999,desc:'Noise isolating, long battery.'},
+      {id:4,title:'Canvas Backpack',price:1499,desc:'Spacious with laptop sleeve.'},
+      {id:5,title:'Sunglasses',price:899,desc:'UV400 protection with stylish frame.'},
+      {id:6,title:'Leather Wallet',price:699,desc:'Slim & durable.'}
+    ];
+
+    const grid = document.getElementById('productGrid');
+    const cartCount = document.getElementById('cartCount');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartToggle = document.getElementById('cartToggle');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartEmpty = document.getElementById('cartEmpty');
+    const cartTotal = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    let cart = [];
+
+    function formatINR(n){ return '₹' + n.toLocaleString('en-IN'); }
+
+    // Render products
+    function renderProducts(){
+      grid.innerHTML = '';
+      products.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="media">${p.title.split(' ').map(w=>w[0]).slice(0,2).join('')}</div>
+          <div class="meta"><div class="title">${p.title}</div><div class="price">${formatINR(p.price)}</div></div>
+          <div class="desc">${p.desc}</div>
+          <div class="card-footer">
+            <button class="btn btn-light" data-id="${p.id}">View</button>
+            <button class="btn btn-primary" data-id="${p.id}">Add</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function updateCartUI(){
+      cartCount.textContent = cart.reduce((s,i)=>s+i.qty,0);
+      cartItemsEl.innerHTML = '';
+      if(cart.length===0){cartEmpty.style.display='block';} else {cartEmpty.style.display='none'}
+      let total = 0;
+      cart.forEach(item=>{
+        total += item.qty*item.price;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <div class="mini">${item.title.split(' ').map(w=>w[0]).slice(0,2).join('')}</div>
+          <div style="flex:1">
+            <div style="font-weight:600">${item.title}</div>
+            <div style="font-size:13px;color:var(--muted)">${formatINR(item.price)} × ${item.qty}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <button class="btn btn-light" data-action="dec" data-id="${item.id}">-</button>
+            <button class="btn btn-light" data-action="inc" data-id="${item.id}">+</button>
+          </div>
+        `;
+        cartItemsEl.appendChild(div);
+      });
+      cartTotal.textContent = formatINR(total);
+    }
+
+    // Add to cart
+    document.body.addEventListener('click', (e)=>{
+      const add = e.target.closest('.btn-primary');
+      const light = e.target.closest('.btn-light');
+      if(add && add.dataset.id){
+        const id = Number(add.dataset.id);
+        const p = products.find(x=>x.id===id);
+        const found = cart.find(c=>c.id===id);
+        if(found){found.qty+=1;} else {cart.push({...p,qty:1});}
+        updateCartUI();
+      } else if(light && light.dataset.action){
+        const id = Number(light.dataset.id);
+        const action = light.dataset.action;
+        const found = cart.find(c=>c.id===id);
+        if(!found) return;
+        if(action==='inc') found.qty+=1;
+        if(action==='dec'){
+          found.qty-=1; if(found.qty<=0) cart = cart.filter(c=>c.id!==id);
+        }
+        updateCartUI();
+      }
+    });
+
+    // Cart drawer toggle
+    cartToggle.addEventListener('click', ()=>{
+      cartDrawer.classList.toggle('open');
+    });
+
+    // Checkout (demo)
+    checkoutBtn.addEventListener('click', ()=>{
+      if(cart.length===0){alert('Cart empty! Add something first.');return}
+      alert('Checkout demo — total: ' + cartTotal.textContent);
+    });
+
+    // init
+    renderProducts();
+    updateCartUI();
+  </script>
+</body>
+</html>
