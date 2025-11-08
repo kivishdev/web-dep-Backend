@@ -82,10 +82,10 @@ catch(err) {
 }
 })
 
-
 app.get('/cart', async (req,res) => {
 try {
-    let CartItems = await ecomModel.find();
+    let CartItems = await ecomModel.find().exec();
+    res.json(CartItems)
     console.log('Item Fetched and shown on the Cart Page', CartItems);
     res.render("cart", {CartProducts: CartItems});
 }
