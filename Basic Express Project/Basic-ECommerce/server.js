@@ -64,7 +64,6 @@ app.get('/search', async (req, res) => {
 });
 
 
-
 app.post('/add-to-cart',async (req,res) => {
 try {
     const {ProdId, Prodname, ProdPrice} = req.body
