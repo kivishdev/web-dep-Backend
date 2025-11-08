@@ -1,10 +1,8 @@
 // For Understanding see db.txt
-
 const express = require("express");
 const app = express();
 
 const userModel = require("./usermodels");   // Ab ye ek constant variable k andar apna puraa model aa chuka haii.
-
 
 
 app.get('/', (req,res) => {
