@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Age Calculator</title>
+  <!-- Luxon CDN include karo -->
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+</head>
+<body>
+  <h1>AGE CALCULATOR</h1>
+  <input type="date" name="date" placeholder="Enter Date">
+  <button>Submit</button>
+
+  <h2 id="result"></h2> <!-- Output show karne ke liye -->
+
+  <script>
+    // Step 1: Luxon ke DateTime ko use karne ke liye reference lo
+    const DateTime = luxon.DateTime;
+
+    // Step 2: HTML elements pakdo
+    let input = document.querySelector("input");
+    let button = document.querySelector("button");
+    let result = document.querySelector("#result");
+
+    // Step 3: Button click hone par function chalayenge
+    button.addEventListener("click", () => {
+      // Agar user ne date nahi dali
+      if (!input.value) {
+        result.textContent = "Please select your birth date 😅";
+        return;
+      }
+
+      // Step 4: User ka birth date ISO se DateTime me convert karo
+      let birthDate = DateTime.fromISO(input.value);
+
+      // Step 5: Current date lo
+      let currentDate = DateTime.now();
+
+      // Step 6: Dono ke beech difference nikaalo (in years)
+      let diff = currentDate.diff(birthDate, "years").years;
+
+      // Step 7: Round off karo (decimal hata ke)
+      let age = Math.floor(diff);
+
+      // Step 8: Output dikhado
+      result.textContent = `You are ${age} years old 🎉`;
+
+      console.log("Birth Date:", birthDate.toISODate());
+      console.log("Current Date:", currentDate.toISODate());
+      console.log("Exact Years Difference:", diff);
+    });
+  </script>
+</body>
+</html>
