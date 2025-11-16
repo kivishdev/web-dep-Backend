@@ -37,8 +37,8 @@ app.post("/get-form-data", (req,res) => {   // Form ye route pe server me aayega
 
 // Dynaic Routing: Hum aise bohot routes bnaate hai jisme sirf ek hissa change hotaa haii. For Ex: /profile/harsh, /profile/harshita... and aur bhi aise same:
 // Ab isi ko mujhe dynamic bnaana haii to phir vo dynamic part ko realise kro and uske hi route k aage : lagaa do.
-app.get("/profile/:username"  // Ab vo colon k aage mai khuchh bhi naam lik du s chalega.
-    , (req,res) => {
+app.get("/profile/:username",  // Ab vo colon k aage mai khuchh bhi naam lik du s chalega.
+     (req,res) => {
         // req.params vahaa use hotaa jiske route me : lgaa ho. And ab hum url me jo bhi naam daal de vo hume main page me dikh jaayega.
     res.send(`Welcome, ${req.params}`)
 })

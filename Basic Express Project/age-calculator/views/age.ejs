@@ -111,11 +111,16 @@
   </style>
 </head>
 <body>
-  <h1>AGE CALCULATOR</h1>
+  <p>Hello <%= Name %></p>
+  <h1> Age kro Calculate </h1>
   <input type="date" name="date" placeholder="Enter Date">
   <button>Submit</button>
 
   <h2 id="result"></h2> <!-- Output show karne ke liye -->
+
+<a href="/delete/<%= id %>">
+  <button>Delete User</button>
+</a>
 
   <script>
     // Step 1: Luxon ke DateTime ko use karne ke liye reference lo
@@ -136,7 +141,7 @@
 
       // Step 4: User ka birth date ISO se DateTime me convert karo
       let birthDate = DateTime.fromISO(input.value);
-
+      
       // Step 5: Current date lo
       let currentDate = DateTime.now();
 
