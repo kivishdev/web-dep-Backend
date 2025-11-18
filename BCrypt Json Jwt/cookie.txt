@@ -1,0 +1,85 @@
+
+// Cookie: Server se browser pe koi data store krvaa denaa.
+// All Cookie Syntax:
+
+// Set Cookie:
+res.cookie("name", "value");
+// Set Cookie with maxAge
+res.cookie("name", "value", { maxAge: 1000 * 60 });
+// Set Cookie (Advanced options)
+res.cookie("name", "value", {
+    httpOnly: true,
+    secure: true,
+    maxAge: 1000 * 60 * 60,
+    sameSite: "strict"
+});
+
+// Read Cookie:
+
+req.cookies
+// Read specific cookie
+req.cookies.name
+
+// Delete Cookies:
+res.clearCookie("name");
+
+// Redirect after cookie
+res.cookie("token", "abc123");
+res.redirect("/dashboard");
+
+// Cookie check (middleware)
+function checkCookie(req, res, next) {
+    if (!req.cookies.token) return res.send("Not Logged In");
+    next();
+}
+
+// Frontend JS se cookie set (non-httpOnly only)
+document.cookie = "theme=dark; max-age=3600";
+
+// Frontend JS se cookie read
+document.cookie
+
+
+ Cookie reset (overwrite)
+res.cookie("name", "", { maxAge: 1 });
+
+Cookie expire on browser close
+res.cookie("session", "abc", { expires: 0 });
+
+ Cookie expire at specific date
+res.cookie("token", "xyz", {
+    expires: new Date("2025-12-31")
+});
+
+
+ Send JSON + set cookie
+res.cookie("token", "abc");
+res.json({ success: true });
+
+ Cookies in EJS
+<%= JSON.stringify(cookies) %>
+
+
+Backend:
+
+res.render("page", { cookies: req.cookies });
+
+ Check if cookie exists
+if (req.cookies.user) { ... }
+
+ Remove cookie securely
+res.clearCookie("token", { httpOnly: true, secure: true });
+
+
+(Lekin delete karne ke liye same options use karo jo set karte time diye the.)
+
+ Cookie with multiple flags
+res.cookie("auth", "123", {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false,
+    path: "/"
+});
+
+
+
