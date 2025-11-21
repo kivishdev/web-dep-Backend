@@ -45,11 +45,9 @@ try {
     let ismatch = await bcrypt.compare(enteredPassword, storedHash);
     console.log(ismatch);
     res.send("Read Page")
-
 } catch(err) {
  console.log(err);
 }
 });
-
 
 app.listen(3000);
