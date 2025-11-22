@@ -1,0 +1,35 @@
+JWT = JSON Web Token
+Ek token (string) jo user ko identify karta hai login ke baad.
+
+Ye 3 parts ka banta hai:
+header.payload.signature
+
+JWT KA REAL KAAM:
+User login karta hai
+Server JWT token banata hai
+Client (browser/app) ko token bhejta hai
+Next requests me browser token bhejta hai
+Server token verify karke user ko allow karta hai
+
+Login → Token → Verify → Allowed
+
+Itna simple.
+
+Install:
+npm i jsonwebtoken
+
+Making JWT Token:
+Syntax:
+
+jwt.sign(
+  { id: user._id, email: user.email },     // payload
+  "SECRET_KEY",                            // secret
+  { expiresIn: "1h" }                      // expiry
+);
+
+Verify Token to JWT:
+
+const decoded = jwt.verify(token, "SECRET_KEY");
+
+console.log(decoded);
+

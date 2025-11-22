@@ -11,6 +11,12 @@ app.use(cookieParser());
     //     { expiresIn: "1h" } // 3. Options (Expiry)
     // );
 
+
+//     const var = jwt.verify(token, "SECRET_KEY");
+
+// console.log(var);
+
+
 app.get("/", (req, res) => {
     let token = jwt.sign({email: "data-need-to-sent"}, "PRIVATE-KEY" )
     res.cookie("token", token)
