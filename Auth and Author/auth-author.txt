@@ -1,0 +1,3 @@
+Authentication: User ko access dene k liye check krnaa user hai kon.
+
+Authorization: User ko login krvaane k baad check krnaa ki user ko konsa access dena hai and konsa access nahi dena.
