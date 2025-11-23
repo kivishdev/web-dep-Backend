@@ -43,9 +43,11 @@ app.post('/login', async (req,res) => {
     if(!user) {
         return res.send("Something Went Wrong")
     }
-        let intpassword = req.body.password
+        let intpassword = req.body.password;
         bcrypt.compare(intpassword, user.password, (error, result) => {
-            console.log(result);
+            console.log("Login Route result: User exists:", result);
+            if(result == true) return res.send("Swaagat hai User")
+                else res.send("Something wennt Wrong");
         })
 })
 
